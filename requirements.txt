@@ -1,0 +1,7 @@
+Package    Version
+---------- -------
+Django     2.1    
+pip        18.1   
+pytz       2018.9 
+setuptools 40.6.3 
+wheel      0.32.3 

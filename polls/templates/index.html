@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  this is the index page
+{% endblock %}
+
+{% block body %}
+  <ol>
+  {% for question in questions %}
+  <li>
+    <a href="{% url 'polls:detail' question.id %}">Question: {{question.question_text }} <br/>
+  </li>
+  {% endfor %}
+  </ol>
+{% endblock %}
