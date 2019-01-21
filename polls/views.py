@@ -21,10 +21,14 @@ def detail(request, question_id):
 
 def update(request, question_id):
     if request.method == 'POST':
-        pass
+        question = Question.objects.get(id=question_id)
+        form = QuestionModelForm(request.POST, instance=question)
+        if form.is_valid():
+            form.save()
+        return HttpResponse('Question updated')
     else:
         question = Question.objects.get(id=question_id)
         context = {}
         context['form'] = QuestionModelForm(instance=question)
-        context['q_id'] = question_id
+        #context['q_id'] = question_id
         return render(request, 'update.html', context)
