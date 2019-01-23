@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Question
 from .forms import QuestionModelForm
+from datetime import datetime
 
 # Create your views here.
 
@@ -35,3 +36,18 @@ def update(request, question_id):
         context['form'] = QuestionModelForm(instance=question)
         #context['q_id'] = question_id
     return render(request, 'update.html', context)
+
+
+def create(request):
+    context = {}
+    context['form'] = QuestionModelForm(initial={'pub_date' : datetime.now()})
+    if request.method == 'POST':
+        form = QuestionModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/polls/')
+        else:
+            context['form'] = form
+            render(request, 'create.html', context)
+    else:
+        return render(request, 'create.html', context)
